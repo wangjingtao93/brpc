@@ -1,0 +1,82 @@
+多线程
+25967 25967 pts/7    00:00:00 echo_client
+25967 25968 pts/7    00:00:00 echo_client
+25967 25969 pts/7    00:00:09 echo_client
+25967 25970 pts/7    00:00:01 echo_client
+25967 25971 pts/7    00:00:01 echo_client
+25967 25972 pts/7    00:00:01 echo_client
+25967 25973 pts/7    00:01:02 echo_client
+25967 25974 pts/7    00:01:03 echo_client
+25967 25975 pts/7    00:00:00 echo_client
+25967 25976 pts/7    00:00:00 echo_client
+25967 25977 pts/7    00:00:01 echo_client
+25967 25978 pts/7    00:00:54 echo_client
+25967 25979 pts/7    00:00:07 echo_client
+25967 25980 pts/7    00:00:07 echo_client
+25967 25981 pts/7    00:00:08 echo_client
+25967 25982 pts/7    00:00:07 echo_client
+25967 25983 pts/7    00:00:07 echo_client
+25967 25984 pts/7    00:00:07 echo_client
+25967 25985 pts/7    00:00:07 echo_client
+25967 25986 pts/7    00:00:07 echo_client
+25967 25987 pts/7    00:00:07 echo_client
+25967 25988 pts/7    00:00:08 echo_client
+25967 25989 pts/7    00:00:07 echo_client
+25967 25990 pts/7    00:00:07 echo_client
+25967 25991 pts/7    00:00:07 echo_client
+25967 25992 pts/7    00:00:07 echo_client
+25967 25993 pts/7    00:00:07 echo_client
+25967 25994 pts/7    00:00:07 echo_client
+25967 25995 pts/7    00:00:07 echo_client
+25967 25996 pts/7    00:00:08 echo_client
+25967 25997 pts/7    00:00:07 echo_client
+25967 25998 pts/7    00:00:08 echo_client
+25967 25999 pts/7    00:00:07 echo_client
+25967 26000 pts/7    00:00:07 echo_client
+25967 26001 pts/7    00:00:07 echo_client
+25967 26002 pts/7    00:00:08 echo_client
+25967 26003 pts/7    00:00:07 echo_client
+25967 26004 pts/7    00:00:07 echo_client
+25967 26005 pts/7    00:00:08 echo_client
+25967 26006 pts/7    00:00:07 echo_client
+25967 26007 pts/7    00:00:07 echo_client
+25967 26008 pts/7    00:00:07 echo_client
+25967 26009 pts/7    00:00:07 echo_client
+25967 26010 pts/7    00:00:06 echo_client
+25967 26011 pts/7    00:00:07 echo_client
+25967 26012 pts/7    00:00:07 echo_client
+25967 26013 pts/7    00:00:07 echo_client
+25967 26014 pts/7    00:00:07 echo_client
+25967 26015 pts/7    00:00:07 echo_client
+25967 26016 pts/7    00:00:07 echo_client
+25967 26017 pts/7    00:00:07 echo_client
+25967 26018 pts/7    00:00:07 echo_client
+25967 26019 pts/7    00:00:08 echo_client
+25967 26020 pts/7    00:00:07 echo_client
+25967 26021 pts/7    00:00:07 echo_client
+25967 26022 pts/7    00:00:07 echo_client
+25967 26023 pts/7    00:00:06 echo_client
+25967 26024 pts/7    00:00:07 echo_client
+25967 26025 pts/7    00:00:07 echo_client
+25967 26026 pts/7    00:00:07 echo_client
+25967 26027 pts/7    00:00:07 echo_client
+25967 26028 pts/7    00:00:07 echo_client
+
+
+
+
+
+
+同步单线程
+26081 26081 pts/4    00:00:00 echo_client
+26081 26082 pts/4    00:00:00 echo_client
+26081 26083 pts/4    00:00:00 echo_client
+26081 26084 pts/4    00:00:00 echo_client
+26081 26085 pts/4    00:00:00 echo_client
+26081 26086 pts/4    00:00:00 echo_client
+26081 26087 pts/4    00:00:00 echo_client
+26081 26088 pts/4    00:00:00 echo_client
+26081 26089 pts/4    00:00:00 echo_client
+26081 26090 pts/4    00:00:00 echo_client
+26081 26091 pts/4    00:00:00 echo_client
+26081 26092 pts/4    00:00:00 echo_client
