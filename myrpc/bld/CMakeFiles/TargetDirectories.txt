@@ -1,0 +1,4 @@
+/root/raptor/incubator-brpc/example/echo_c++/myrpc/bld/CMakeFiles/rebuild_cache.dir
+/root/raptor/incubator-brpc/example/echo_c++/myrpc/bld/CMakeFiles/edit_cache.dir
+/root/raptor/incubator-brpc/example/echo_c++/myrpc/bld/CMakeFiles/echo_server.dir
+/root/raptor/incubator-brpc/example/echo_c++/myrpc/bld/CMakeFiles/echo_client.dir

@@ -1,8 +1,7 @@
-#brpc 代码阅读
 
-##client
+# 1. client
 Client指发起请求的一端，在brpc中没有对应的实体，取而代之的是[brpc::Channel](https://github.com/brpc/brpc/blob/master/src/brpc/channel.h)，它代表和一台或一组服务器的交互通道，Client和Channel在角色上的差别在实践中并不重要，可以把Channel视作Client。
-###基本执行过程
+## 1.1. 基本执行过程
 1. 在主程序外围定义命令行参数（全局）。包括attachment、protocol、connection_type、server、The algorithm for load balancin（负载均衡算法）、timeout_ms、max_retry（重连接次数）、interval_ms,具体的定义方式见代码。
 2. **解析gflags**，gflags是google开源的用于处理命令行参数的项目，具体内容见[gflags库的完全使用](https://blog.csdn.net/u012414189/article/details/84256667)。一般再main函数的首行。<font color = 'red'>同步、异步、多线程这部分语法（过程）是相同的</font>
 3. **与service建立通道channel，并初始化**，通道可以由程序中所用的线程共享。
@@ -44,7 +43,7 @@ Client指发起请求的一端，在brpc中没有对应的实体，取而代之�
   - 同步程序里stub.Echo()的“dong”（最后一个参数）时NULL，即`stub.Echo(&cntl, &request, &response, NULL);`所以这个函数将等待响应返回（response back）,或者发生错误，包括超时（timeout）。这一点 <font color = 'red'>同步和多线程时一样的，和异步程序是不同的。</font>
   - 打印客户端和服务端的交互信息
 
-###同步和异步比较
+## 1.2. 同步和异步比较
 
 1. 同步时接收响应（response）,将变量放在堆上是安全的，但是异步是将对象（变量）放在堆上的。因为异步时，我们正在发送异步RPC (' done'不为空)，所以在调用'done'之前，这些对象必须保持有效。同步时对象是（变量）声明出来的，异步时对象是new出来的。
   - 同步代码
@@ -70,7 +69,7 @@ Client指发起请求的一端，在brpc中没有对应的实体，取而代之�
    - 同步，stub.Echo(<font color ='red'>&cntl</font>, &request, <font color ='red'>&response</font>, <font color ='red'>NULL</font>)
    - 异步，  stub.Echo(<font color ='red'>cntl</font>, &request, <font color ='red'>response</font>,<font color ='red'> done</font>);
 
-####异步的回调函数`HandleEchoResponse`
+### 1.2.1. 异步的回调函数`HandleEchoResponse`
 1. 在主函数中，使用protobuf的工具“NewCallback”，创建一个封闭的对象（closure object）的过程中会调用。
 2. 函数两个入参即`brpc::Controller* cntl,
         example::EchoResponse* response`，函数具体的流程：
@@ -80,7 +79,7 @@ Client指发起请求的一端，在brpc中没有对应的实体，取而代之�
             &HandleEchoResponse, cntl, response);`,调用之后在执行stub.Echo函数。
 
 
-###同步和多线程
+## 1.3. 同步和多线程
 echo同步和异步时连接的是一台服务器。**多线程连接的是服务器集群**，会有服务器列表。
   - 连接一台服务器
 ```C++
@@ -100,7 +99,7 @@ int Init(const char* server_addr, int port, const ChannelOptions* options);
 
 2.多线程，bthread,pthread,[bthread](https://github.com/brpc/brpc/tree/master/src/bthread)是brpc使用的M:N线程库，目的是在提高程序的并发度的同时，降低编码难度，并在核数日益增多的CPU上提供更好。初始化channel后，多线程程序会创建多个线程线程`pthread_create`，调用send函数完成request和response(请求和响应)
 
-####多线程的send函数
+### 1.3.1. 多线程的send函数
 
 1. 通常情况下echo不是直接调用一个通道，而是构造一个stub Service来封装通道，stub和通道channel一样可以被所有线程共享， <font color = 'red'>这一点同步和异步和多线程都是一样的</font>，但是多线程会封装在一个send函数里，起多个线程。代码如下：
 ```C++
@@ -112,9 +111,9 @@ int Init(const char* server_addr, int port, const ChannelOptions* options);
 std::string g_attachment;`
 不再直接是"hello world".
 
-##server
+# 2. server
 
-###基本流程
+## 2.1. 基本流程
 一个server得基本执行流程：
 1. 实现的EchoService基类即：example::EchoService,在主函数里，首先就需要实例化一个service，即`example::EchoServiceImpl echo_service_impl;`。
 2. 同样是先解析gflags。
@@ -147,7 +146,7 @@ if (server.Start(FLAGS_port, &options) != 0) {
 4. response可以通过控制器来压缩，但是代价可能很昂贵。通过函数`cntl->set_response_compress_type(brpc::COMPRESS_TYPE_GZIP)`来实现
 5. 设置attachment,同样是直接和网络建立连接，不需要序列化成protobuf消息。
 
-###同步和异步比较
+## 2.2. 同步和异步比较
 1. 同步和异步的service程序，首先都是解析gflags，建立一个server( brpc::Server server;),实例化一个service,将service加入server，然后start server。
 2. done由框架创建，递给服务回调，包含了调用服务回调后的后续动作，包括检查response正确性，序列化，打包，发送等逻辑。框架不自己调用done->Run()，用户可以把done保存下来，在服务回调之后的某事件发生时再调用，实现异步
 3. 使用**ClosureGuard**确保done->Run()被调用，即在服务回调开头的那句：
@@ -160,7 +159,7 @@ brpc::ClosureGuard done_guard(done);
 4. 异步时done->Run()在Service回调之外被调用。
 
 
-###同步和多线程的比较
+## 2.3. 同步和多线程的比较
 1. 多线程定义了`max_concurrency`即并行处理request的限制，和`internal_port`即构建服务的端口限制，在start server时会用到这个两个参数。
 ```C++
 DEFINE_int32(max_concurrency, 0, "Limit of request processing in parallel");
